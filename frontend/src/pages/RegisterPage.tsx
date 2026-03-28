@@ -15,7 +15,7 @@ const RegisterPage = () => {
               <IoLogoWechat size={80} className="text-violet-500 drop-shadow-[0_0_15px_rgba(139,92,246,0.5)]"/>
             </div>
             <div className="space-y-2">
-              <h2 className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 tracking-tight">
+              <h2 className="text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-linear-to-r from-white to-gray-400 tracking-tight">
                 Join ChatApp
               </h2>
               <p className="text-gray-400 text-lg lg:text-xl max-w-md font-light leading-relaxed">
@@ -26,7 +26,7 @@ const RegisterPage = () => {
         {/* right side */}
         <div className="w-full max-w-md flex-1">
           <form className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 sm:p-10 flex flex-col gap-5 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-indigo-500"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-violet-500 to-indigo-500"></div>
             <div className="space-y-1 mb-2">
               <h2 className="text-3xl font-semibold text-white tracking-tight">
                 Register
@@ -40,7 +40,7 @@ const RegisterPage = () => {
               <input type="password" name="password" placeholder="Password" required className={inputStyles}/>
             </div>
             
-            <button type="submit" className="mt-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 rounded-lg py-3.5 font-semibold text-white cursor-pointer shadow-[0_0_20px_rgba(139,92,246,0.2)] hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] transform hover:-translate-y-0.5">
+            <button type="submit" className="mt-4 bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 rounded-lg py-3.5 font-semibold text-white cursor-pointer shadow-[0_0_20px_rgba(139,92,246,0.2)] hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] transform hover:-translate-y-0.5">
               Create Account
             </button>
             
