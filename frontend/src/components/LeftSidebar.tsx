@@ -7,7 +7,7 @@ import { dummyUsers } from "../assets/assets"
 import ChatUser from "./ChatUser"
 
 const LeftSidebar = () => {
-  const {selectedUser}=useChatStore()
+  const {selectedUser, setSelectedUser}=useChatStore()
   const [dropdownOpen,setDropdownOpen]=useState(false)
   return (
     <div className={`bg-[#818582]/10 h-full rounded-r-2xl overflow-y-scroll text-white ${selectedUser ? "max-md:hidden" : ""}`}>
@@ -36,7 +36,7 @@ const LeftSidebar = () => {
             <div className="py-4">
               {dummyUsers.map((user)=>{
                 return (
-                  <ChatUser key={user.id} name={user.name} avatar={user.avatar} online={user.online} />
+                  <ChatUser key={user.id} name={user.name} avatar={user.avatar} online={user.online} onClick={() => setSelectedUser()} />
                 )
               })}
             </div>
