@@ -9,7 +9,7 @@ interface ChatUserProps{
    
 }
 
-const ChatUser = ({name,avatar,selected,onClick,online}:ChatUserProps) => {
+const ChatUser = ({name,avatar,onClick,online}:ChatUserProps) => {
   return (
     <div className="p-3 rounded-lg cursor-pointer transition hover:bg-[#282142]/50" onClick={onClick}>
         <div className="flex items-center gap-3">

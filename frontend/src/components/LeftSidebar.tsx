@@ -5,10 +5,12 @@ import { useState } from "react"
 import { IoSearch } from "react-icons/io5"
 import { dummyUsers } from "../assets/assets"
 import ChatUser from "./ChatUser"
+import { useEditProfileModal } from "../store/useEditStore"
 
 const LeftSidebar = () => {
   const {selectedUser, setSelectedUser}=useChatStore()
   const [dropdownOpen,setDropdownOpen]=useState(false)
+  const {openModal} = useEditProfileModal()
   return (
     <div className={`bg-[#818582]/10 h-full rounded-r-2xl overflow-y-scroll text-white ${selectedUser ? "max-md:hidden" : ""}`}>
       <div className="py-6 px-4">
@@ -18,11 +20,17 @@ const LeftSidebar = () => {
           <div className="relative py-2">
             <BsThreeDotsVertical onClick={()=>setDropdownOpen(!dropdownOpen)} size={20} className="text-gray-200 cursor-pointer"/>
             {/* dropdown */}
-            <div className={`absolute top-full right-0 z-20 w-32 p-5 rounded-md bg-[#282142] border border-gray-600 ${dropdownOpen ? "block" : "hidden"}`}>
-              <button className="cursor-pointer text-sm ">Profile</button>
-    <hr className="my-2 border-t border-gray-500" />
-    <button className="cursor-pointer text-sm ">Logout</button>
-
+            <div className={`absolute top-full right-0 z-20 w-40 p-2 mt-2 rounded-xl bg-[#282142]/95 backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-200 origin-top-right ${dropdownOpen ? "opacity-100 scale-100 visible" : "opacity-0 scale-95 invisible"}`}>
+              <button className="w-full text-left font-medium px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer flex items-center gap-2" onClick={()=> {
+                openModal()
+                setDropdownOpen(false)
+              }}>
+                Profile
+              </button>
+              <div className="my-1 h-px bg-white/10 mx-2" />
+              <button className="w-full text-left font-medium px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer flex items-center gap-2">
+                Logout
+              </button>
             </div>
             
           </div>

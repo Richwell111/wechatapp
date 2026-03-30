@@ -26,7 +26,7 @@ const ChatContainer = () => {
           const isMe=message.senderId==="u1"
           return(
             <div key={message.id} className={`flex items-center gap-2 justify-end ${isMe ? "" : "flex-row-reverse"}`}>
-              <p className={`p-2 max-w-50 text-sm font-light rounded-lg mb-8 break-all text-gray-100 ${isMe ? "bg-violet-500/50 text-white rounded-br-none" : "bg-gray-700/50 rounded-bl-none text-gray-100"}`}>{message.content}</p>
+              <p className={`p-2 max-w-50 text-sm font-light rounded-2xl mb-8 break-all text-gray-100 ${isMe ? "bg-violet-500/50 text-white rounded-br-none" : "bg-gray-700/50 rounded-bl-none text-gray-100"}`}>{message.content}</p>
               <div className="text-center text-xs">
                 <img src={isMe ? assets.img1:assets.img2} alt="" className="h-7 w-7 rounded-full object-cover" />
                 <p className="mt-1 text-gray-500">
