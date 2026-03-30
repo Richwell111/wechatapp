@@ -1,7 +1,7 @@
 import { IoLogoWechat } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
 
-const inputStyles = "w-full py-3 px-4 border border-white/10 rounded-lg outline-none text-white placeholder-gray-400 bg-black/20 focus:border-violet-500 focus:bg-black/40 transition-all duration-300"
+export const inputStyles = "w-full py-3 px-4 border border-white/10 rounded-lg outline-none text-white placeholder-gray-400 bg-black/20 focus:border-violet-500 focus:bg-black/40 transition-all duration-300"
 
 const LoginPage = () => {
   const navigate = useNavigate()
