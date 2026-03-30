@@ -5,7 +5,7 @@ const RightSidebar = () => {
     const {selectedUser}=  useChatStore()
     if(selectedUser){
         return(
-            <div className="bg-[#818582]/10 w-full relative overflow-y-scroll text-white">
+            <div className="bg-[#818582]/10 hidden md:block w-full relative overflow-y-scroll text-white">
                 <div className="pt-16 flex flex-col items-center gap-2 text-xs font-light mx-auto">
                     <img src={assets.img1} className="w-20 aspect-square rounded-full object-cover"/>
                     <div className="flex items center gap-2">
