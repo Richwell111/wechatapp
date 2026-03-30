@@ -15,9 +15,9 @@ const ChatPage = () => {
            <ChatContainer/>
             {/* right side */}
             <RightSidebar/>
-            <EditProfileModal/>
-           
         </div>
+        
+        <EditProfileModal/>
     </div>
   )
 }
