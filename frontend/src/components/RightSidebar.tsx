@@ -1,8 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets"
 import { useChatStore } from "../store/useChatStore"
+import { authClient } from "../lib/auth-client";
 
 const RightSidebar = () => {
     const {selectedUser}=  useChatStore()
+      const navigate = useNavigate();
+        const { data: session } = authClient.useSession();
+
+       const handleSignout = async () => {
+    const { error } = await authClient.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    navigate("/");
+  };
+
+
     if(selectedUser){
         return(
             <div className="bg-[#818582]/10 hidden md:block w-full relative overflow-y-scroll text-white">
@@ -16,7 +32,7 @@ const RightSidebar = () => {
                     <p className="px-10 mx-auto text-sm">This is my bio</p>
                 </div>
                 <hr  className="border-gray-600 my-4"/>
-                <button className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-linear-to-r from-violet-500 to-indigo-500 text-white border-none text-sm font-light py-2 px-20 rounded-full  cursor-pointer">
+                <button  onClick={() => handleSignout()} className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-linear-to-r from-violet-500 to-indigo-500 text-white border-none text-sm font-light py-2 px-20 rounded-full  cursor-pointer">
 Logout
                 </button>
             </div>

@@ -21,7 +21,7 @@ const RegisterPage = () => {
       [name]: value
     }))
   }
-  const handleRegister= async (e:React.SubmitEvent)=>{
+  const handleRegister= async (e:React.FormEvent)=>{
     e.preventDefault()
     setLoading(true)
     try{

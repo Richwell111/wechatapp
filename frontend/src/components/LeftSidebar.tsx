@@ -6,11 +6,24 @@ import { IoSearch } from "react-icons/io5"
 import { dummyUsers } from "../assets/assets"
 import ChatUser from "./ChatUser"
 import { useEditProfileModal } from "../store/useEditStore"
+import { useNavigate } from "react-router-dom"
+import { authClient } from "../lib/auth-client"
 
 const LeftSidebar = () => {
   const {selectedUser, setSelectedUser}=useChatStore()
   const [dropdownOpen,setDropdownOpen]=useState(false)
   const {openModal} = useEditProfileModal()
+    const navigate = useNavigate();
+
+       const handleSignout = async () => {
+    const { error } = await authClient.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    navigate("/");
+  };
   return (
     <div className={`bg-[#818582]/10 h-full rounded-r-2xl overflow-y-scroll text-white ${selectedUser ? "max-md:hidden" : ""}`}>
       <div className="py-6 px-4">
@@ -28,7 +41,7 @@ const LeftSidebar = () => {
                 Profile
               </button>
               <div className="my-1 h-px bg-white/10 mx-2" />
-              <button className="w-full text-left font-medium px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer flex items-center gap-2">
+              <button onClick={() => handleSignout()} className="w-full text-left font-medium px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer flex items-center gap-2">
                 Logout
               </button>
             </div>
