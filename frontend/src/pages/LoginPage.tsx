@@ -1,10 +1,62 @@
+import { useState } from "react"
 import { IoLogoWechat } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
+import { authClient } from "../lib/auth-client"
+import toast from "react-hot-toast"
 
 export const inputStyles = "w-full py-3 px-4 border border-white/10 rounded-lg outline-none text-white placeholder-gray-400 bg-black/20 focus:border-violet-500 focus:bg-black/40 transition-all duration-300"
 
 const LoginPage = () => {
   const navigate = useNavigate()
+  const [authData, setAuthData] = useState({
+    email: "",
+    password: ""
+  })
+  const [loading, setLoading] = useState(false)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setAuthData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: authData.email,
+        password: authData.password,
+        callbackURL: "/chat"
+      })
+      if (error) {
+        toast(error.message as string, {
+          icon: "❌",
+          style: {
+            background: "#111",
+            color: "#fff",
+            border: "1px solid #444"
+          }
+        })
+        return
+      }
+      if (data) {
+        toast("Login successful", {
+          icon: "✅",
+          style: {
+            background: "#111",
+            color: "#fff",
+            border: "1px solid #444"
+          }
+        })
+        navigate("/chat")
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  } 
   
   return (
     <div className="min-h-screen bg-black/40 backdrop-blur-2xl flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -25,7 +77,7 @@ const LoginPage = () => {
         </div>
         {/* right side */}
         <div className="w-full max-w-md flex-1">
-          <form className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 sm:p-10 flex flex-col gap-5 shadow-2xl relative overflow-hidden">
+          <form onSubmit={handleLogin} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 sm:p-10 flex flex-col gap-5 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-violet-500 to-indigo-500"></div>
             <div className="space-y-1 mb-2">
               <h2 className="text-3xl font-semibold text-white tracking-tight">
@@ -35,12 +87,12 @@ const LoginPage = () => {
             </div>
             
             <div className="space-y-4">
-              <input type="email" name="email" placeholder="Email Address" required className={inputStyles}/>
-              <input type="password" name="password" placeholder="Password" required className={inputStyles}/>
+              <input type="email" name="email" placeholder="Email Address" required className={inputStyles} value={authData.email} onChange={handleChange}/>
+              <input type="password" name="password" placeholder="Password" required className={inputStyles} value={authData.password} onChange={handleChange}/>
             </div>
             
-            <button type="submit" className="mt-4 bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 rounded-lg py-3.5 font-semibold text-white cursor-pointer shadow-[0_0_20px_rgba(139,92,246,0.2)] hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] transform hover:-translate-y-0.5">
-              Sign In
+            <button   disabled={loading} type="submit" className="mt-4 bg-linear-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all duration-300 rounded-lg py-3.5 font-semibold text-white cursor-pointer shadow-[0_0_20px_rgba(139,92,246,0.2)] hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] transform hover:-translate-y-0.5">
+              {loading ? "Signing In..." : "Sign In"}
             </button>
             
             <p className="text-center text-gray-400 text-sm mt-2">
