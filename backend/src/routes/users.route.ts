@@ -2,8 +2,31 @@ import { Request, Response, Router } from "express";
 import { getServerSession } from "../services/getSession.service";
 import { prisma } from "../lib/prisma";
 
+/**
+ * @openapi
+ * tags:
+ *   name: Users
+ *   description: User discovery and search
+ */
+
 const router = Router();
 
+/**
+ * @openapi
+ * /api/users:
+ *   get:
+ *     summary: Search for users
+ *     tags: [Users]
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Search by name or email
+ *     responses:
+ *       200:
+ *         description: List of users
+ */
 router.get("/", async (req: Request, res: Response) => {
   try {
     const session = await getServerSession(req);

@@ -7,8 +7,40 @@ import {
   uploadToCloudinary,
 } from "../services/cloudinary.service";
 
+/**
+ * @openapi
+ * tags:
+ *   name: Profile
+ *   description: User profile management
+ */
+
 const router = Router();
 
+/**
+ * @openapi
+ * /api/profile:
+ *   put:
+ *     summary: Update user profile
+ *     tags: [Profile]
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               bio:
+ *                 type: string
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ */
 router.put(
   "/",
   upload.single("avatar"),
@@ -70,6 +102,20 @@ router.put(
   },
 );
 
+/**
+ * @openapi
+ * /api/profile:
+ *   get:
+ *     summary: Get current user profile
+ *     tags: [Profile]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile data
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/", async (req: Request, res: Response) => {
   try {
     const session = await getServerSession(req);
