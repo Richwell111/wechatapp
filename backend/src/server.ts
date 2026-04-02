@@ -11,8 +11,12 @@ import ConversationRoutes from "./routes/conversation.route"
 import MessageRoutes from "./routes/message.route"
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger";
+import { createServer } from "node:http";
+import { initSocket } from "./socket";
+import path from "node:path";
 
 const app = express()
+const httpServer = createServer(app);
 const PORT = process.env.PORT || 3000
 app.use(cors({
   origin:process.env.ORIGIN!,
@@ -28,17 +32,19 @@ app.use("/api/users",UsersRoutes);
 app.use("/api/conversations",ConversationRoutes);
 app.use("/api/messages",MessageRoutes)
 
-app.get("/", (_req: Request, res: Response) => {
-  res.json({ message: "Hello World!" })
-})
+// app.get("/", (_req: Request, res: Response) => {
+//   res.json({ message: "Hello World!" })
+// })
 
+//init socket
+initSocket(httpServer);
 // Serve Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Apply Auth Rate Limiter specifically to auth requests (using IP)
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })
 export default app
